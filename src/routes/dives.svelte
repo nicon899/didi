@@ -1,5 +1,10 @@
 <script lang=ts>
-    import { getDiveByNumber, type Dive, type Group } from "$lib/diveDB";
+    import {
+        getDiveByNumber,
+        getSKG,
+        type Dive,
+        type Group,
+    } from "$lib/diveDB";
 
     let showEasyDiveInput = true;
     let dive: Dive | undefined;
@@ -88,6 +93,10 @@
     const onChangeFlyingHandler = (e: any) => {
         isFlying = e.target.checked;
         extInputToNumber();
+    };
+
+    const formatSKG = (skg: number | null) => {
+        return skg ? skg : "-/-";
     };
 </script>
 
@@ -191,33 +200,43 @@
 {/if}
 
 {#if dive}
-    <p>{dive.name}</p>
+    <p>{dive.de}</p>
     <table>
         <tr><th>Höhe</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-        <tr
-            ><td>1</td><td>{dive?.skg.A[1]}</td><td>{dive?.skg.B[1]}</td><td
-                >{dive?.skg.C[1]}</td
-            ><td>{dive?.skg.D[1]}</td>
+        <tr>
+            <td>1</td>
+            <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
         </tr>
-        <tr
-            ><td>3</td><td>{dive?.skg.A[3]}</td><td>{dive?.skg.B[3]}</td><td
-                >{dive?.skg.C[3]}</td
-            ><td>{dive?.skg.D[3]}</td>
+        <tr>
+            <td>3</td>
+            <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
         </tr>
-        <tr
-            ><td>5</td><td>{dive?.skg.A[5]}</td><td>{dive?.skg.B[5]}</td><td
-                >{dive?.skg.C[5]}</td
-            ><td>{dive?.skg.D[5]}</td>
+        <tr>
+            <td>5</td>
+            <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
         </tr>
-        <tr
-            ><td>7.5</td><td>{dive?.skg.A[7]}</td><td>{dive?.skg.B[7]}</td><td
-                >{dive?.skg.C[7]}</td
-            ><td>{dive?.skg.D[7]}</td>
+        <tr>
+            <td>7.5</td>
+            <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
         </tr>
-        <tr
-            ><td>10</td><td>{dive?.skg.A[10]}</td><td>{dive?.skg.B[10]}</td><td
-                >{dive?.skg.C[10]}</td
-            ><td>{dive?.skg.D[10]}</td>
+        <tr>
+            <td>10</td>
+            <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
+            <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
         </tr>
     </table>
 {:else}
