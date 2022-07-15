@@ -8,7 +8,6 @@ export type Dive = {
 }
 
 export const getSKG = (dive: string, height: number, position: Position) => {
-    if (position === "D" && dive[0] !== "5" && (dive[0] !== "6" && dive.length === 4)) return null
     console.log(`getDD(${dive}, ${height}, ${position})`)
     let ddJunior = getDDJunior(dive, height, position)
     return ddJunior === false ? getDD(dive, height, position) : ddJunior

@@ -402,11 +402,27 @@ const tableC = {
         { group: 6, subGroup: 2, saults: [1, 9], val: 1.3 },
         { group: 6, subGroup: 3, saults: [1, 9], val: 1.3 },
     ],
-    5: [
+    "5board": [
         { group: 5, subGroup: 1, saults: [1, 4], val: 1.2 },
         { group: 5, subGroup: 1, saults: [5, 7], val: 1.2 },
         { group: 5, subGroup: 2, saults: [1, 4], val: 1.2 },
         { group: 5, subGroup: 2, saults: [5, 7], val: 1.1 },
+        { group: 5, subGroup: 3, saults: [1, 4], val: 1.2 },
+        { group: 5, subGroup: 3, saults: [5, 7], val: 1.0 },
+        { group: 5, subGroup: 4, saults: [1, 4], val: 1.2 },
+        { group: 5, subGroup: 4, saults: [5, 7], val: 1.2 },
+        { group: 6, subGroup: 1, saults: [1, 4], val: 1.7 },
+        { group: 6, subGroup: 1, saults: [5, 7], val: 1.7 },
+        { group: 6, subGroup: 2, saults: [1, 4], val: 1.7 },
+        { group: 6, subGroup: 2, saults: [5, 7], val: 1.7 },
+        { group: 6, subGroup: 3, saults: [1, 4], val: 1.7 },
+        { group: 6, subGroup: 3, saults: [5, 7], val: 1.7 },
+    ],
+    "5plat": [
+        { group: 5, subGroup: 1, saults: [1, 4], val: 1.2 },
+        { group: 5, subGroup: 1, saults: [5, 7], val: 1.2 },
+        { group: 5, subGroup: 2, saults: [1, 4], val: 1.2 },
+        { group: 5, subGroup: 2, saults: [5, 7], val: 1.0 },
         { group: 5, subGroup: 3, saults: [1, 4], val: 1.2 },
         { group: 5, subGroup: 3, saults: [5, 7], val: 1.0 },
         { group: 5, subGroup: 4, saults: [1, 4], val: 1.2 },
@@ -624,7 +640,9 @@ export const getDD = (dive: string, height: number, pos: Position) => {
     let group = parseInt(dive[0])
     let subgroup: number | null = null;
     let isWithTwists = (group === 5 || (group === 6 && dive.length === 4));
-    if (isWithTwists) {
+    if (pos == "D" && !isWithTwists) return null
+    if (group === 6 && height < 5) return null
+    if (group === 5 || group === 6) {
         subgroup = parseInt(dive[1])
     }
     let saults = (!isWithTwists && dive.length === 4) ? parseInt(dive.substring(2)) : parseInt(dive[2])
@@ -733,10 +751,9 @@ const getDDC = (twists: number, saults: number, group: number, subGroup: number,
     if (group === 6 && saults >= 5 && (pos !== "B" && pos !== "C")) {
         return null;
     }
-    let twistIndex = (twists === 7 || twists === 9) ? (isPlatform ? `${twists}plat` : `${twists}board`) : twists
+    let twistIndex = ([5, 7, 9].findIndex(i => i === twists) >= 0) ? (isPlatform ? `${twists}plat` : `${twists}board`) : twists
     for (let c of tableC[twistIndex]) {
         if (group === c.group && subGroup === c.subGroup && saults >= c.saults[0] && saults <= c.saults[1]) {
-            console.log(`${subGroup} === ${subGroup} && ${saults} >= ${c.saults[0]} && ${saults} <= ${c.saults[1]}`)
             let res = c.val
             return res
         }
@@ -751,6 +768,7 @@ const getDDD = (group: number, height: number, saults: number) => {
 }
 
 const getDDDArmstand = (subgroup: number, saults: number) => {
+    console.log(subgroup + " - " + saults)
     switch (subgroup) {
         case 1:
             if (saults <= 4) return 0.2
