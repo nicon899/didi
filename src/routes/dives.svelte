@@ -1,4 +1,4 @@
-<script lang=ts>
+<script lang="ts">
     import {
         getDiveByNumber,
         getSKG,
@@ -239,6 +239,10 @@
             <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
         </tr>
     </table>
-{:else}
-    <p>Unbekannter Sprung</p>
 {/if}
+
+<style>
+    table {
+        text-align: left;
+    }
+</style>

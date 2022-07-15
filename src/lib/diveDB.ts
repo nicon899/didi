@@ -1,13 +1,17 @@
+import { getDD, getDDJunior } from "./caculateDD"
+
 export type Group = "1" | "2" | "3" | "4" | "5" | "6" | "5_1" | "5_2"
-export type Position = "A" | "B" | "C" | "D"
+export type Position = "A" | "B" | "C" | "D" | "E"
 export type Dive = {
     id: string,
     de: string
 }
 
 export const getSKG = (dive: string, height: number, position: Position) => {
-    if (position === "D") return null
-    return 1.0
+    if (position === "D" && dive[0] !== "5" && (dive[0] !== "6" && dive.length === 4)) return null
+    console.log(`getDD(${dive}, ${height}, ${position})`)
+    let ddJunior = getDDJunior(dive, height, position)
+    return ddJunior === false ? getDD(dive, height, position) : ddJunior
 }
 
 export const getDiveByNumber = (number: string) => {
@@ -16,6 +20,7 @@ export const getDiveByNumber = (number: string) => {
             return div;
         }
     }
+    return { id: number, de: "Unbekannter Sprung" }
 }
 
 const DIVES: Dive[] = [
