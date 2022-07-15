@@ -13,7 +13,7 @@
 				<a sveltekit:prefetch href="/dives">Sprünge</a>
 			</li>
 			<li class="{$page.url.pathname === '/dictionary' ? 'activeTab' : ''}">
-				<a sveltekit:prefetch href="/dictionary">Wörterbuch 🇩🇪🇺🇸🇺🇦 </a>
+				<a sveltekit:prefetch href="/dictionary">Wörterbuch 🇩🇪🇬🇧🇺🇦 </a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">

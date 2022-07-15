@@ -22,8 +22,8 @@ export const dictionary: DictionaryEntry[] = [
     { de: "Freie Ausführung", en: "Free position", ukr: "", isHeader: false },
     // DIVES
     { de: "Sprünge", en: "Dives", ukr: "стрибки (strybky)", isHeader: true },
+    { de: "Fußsprung", en: "Forward Jump", ukr: "Стрибок вперед (Strybok vpered)", isHeader: false },
     { de: "Kopfsprung", en: "Forward Dive", ukr: "пірнати (pirnaty)", isHeader: false },
-    { de: "Fußsprung", en: "Foot Dive", ukr: "стрибок ногою (strybok nohoyu)", isHeader: false },
     { de: "Schraube", en: "Twist", ukr: "гвинт (hvynt)", isHeader: false },
     { de: "Halbe Schraube", en: "Half Twist", ukr: "напівгвинт (napivhvynt)", isHeader: false },
 ]

@@ -26,7 +26,7 @@
 <table>
     <tr
         ><th>🇩🇪Deutsch</th>
-        <th>🇺🇸Englisch</th>
+        <th>🇬🇧English</th>
         <th>🇺🇦українська (ukrayinsʹka)</th>
     </tr>
     {#each filteredDictonary as v, i}
