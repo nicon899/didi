@@ -670,7 +670,6 @@ export const getDD = (dive: string, height: number, pos: Position) => {
     }
     let e = isWithTwists ? 0 : getDDE(group, saults, height >= 5, subgroup)
     if (a === null || b === null || c === null || d === null || e === null) return null
-    console.log(`a: ${a}, b: ${b}, c: ${c}, d: ${d}, e: ${e},`)
     let dd = (a + b + c + d + e)
     return Math.round((dd + Number.EPSILON) * 100) / 100
 }
@@ -768,7 +767,6 @@ const getDDD = (group: number, height: number, saults: number) => {
 }
 
 const getDDDArmstand = (subgroup: number, saults: number) => {
-    console.log(subgroup + " - " + saults)
     switch (subgroup) {
         case 1:
             if (saults <= 4) return 0.2

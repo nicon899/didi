@@ -100,83 +100,67 @@
     };
 </script>
 
-<h1>Welcome</h1>
+<div class="flexbox p-5">
+    <input
+        type="number"
+        min="0"
+        bind:value={number}
+        placeholder="Sprungnummer"
+        on:change={onChangeNumberHandler}
+        class="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+    />
 
-<input
-    type="number"
-    min="0"
-    bind:value={number}
-    placeholder="Sprungnummer"
-    on:change={onChangeNumberHandler}
-/>
+    <input
+        type="button"
+        on:click={toggleMode}
+        value="{!showEasyDiveInput
+            ? 'Zeige'
+            : 'Verstecke'} erweiterte Sprungeingabe"
+    />
 
-<input
-    type="button"
-    on:click={toggleMode}
-    value="{!showEasyDiveInput
-        ? 'Zeige'
-        : 'Verstecke'} erweiterte Sprungeingabe"
-/>
-
-{#if showEasyDiveInput}
-    <label for="group">Richtung:</label>
-    <select
-        name="group"
-        on:change={onChangeDirectionHandler}
-        bind:value={group}
-    >
-        <option value="1">Vorwärts</option>
-        <option value="2">Rückwärts</option>
-        <option value="3">Auerbach</option>
-        <option value="4">Delphin</option>
-        <option value="5">Schraube</option>
-        <option value="6">Handstand</option>
-    </select>
-
-    {#if group === "5" || group === "6"}
-        <label for="subdirection">...:</label>
+    {#if showEasyDiveInput}
+        <label for="group">Richtung:</label>
         <select
-            name="subdirection"
-            on:change={onChangeSubDirectionHandler}
-            bind:value={subGroup}
+            name="group"
+            on:change={onChangeDirectionHandler}
+            bind:value={group}
         >
-            {#if group === "6"} <option value="0">Kopfsprung</option> {/if}
             <option value="1">Vorwärts</option>
             <option value="2">Rückwärts</option>
             <option value="3">Auerbach</option>
-            {#if group === "5"} <option value="4">Delphin</option> {/if}
-            {#if group === "6"}
-                <option value="5_1">Vorwärts Schraube</option>
-            {/if}
-            {#if group === "6"}
-                <option value="5_2">Rückwärts Schraube</option>
-            {/if}
+            <option value="4">Delphin</option>
+            <option value="5">Schraube</option>
+            <option value="6">Handstand</option>
         </select>
-    {/if}
 
-    <label for="saults">Saltodrehungen:</label>
-    <select name="saults" on:change={onChangeSaultHandler} bind:value={saults}>
-        <option value="0">0</option>
-        <option value="1">½</option>
-        <option value="2">1</option>
-        <option value="3">1½</option>
-        <option value="4">2</option>
-        <option value="5">2½</option>
-        <option value="6">3</option>
-        <option value="7">3½</option>
-        <option value="8">4</option>
-        <option value="9">4½</option>
-        <option value="10">5</option>
-        <option value="11">5½</option>
-    </select>
+        {#if group === "5" || group === "6"}
+            <label for="subdirection">...:</label>
+            <select
+                name="subdirection"
+                on:change={onChangeSubDirectionHandler}
+                bind:value={subGroup}
+            >
+                {#if group === "6"} <option value="0">Kopfsprung</option> {/if}
+                <option value="1">Vorwärts</option>
+                <option value="2">Rückwärts</option>
+                <option value="3">Auerbach</option>
+                {#if group === "5"} <option value="4">Delphin</option> {/if}
+                {#if group === "6"}
+                    <option value="5_1">Vorwärts Schraube</option>
+                {/if}
+                {#if group === "6"}
+                    <option value="5_2">Rückwärts Schraube</option>
+                {/if}
+            </select>
+        {/if}
 
-    {#if group === "5" || (group === "6" && subGroup.charAt(0) === "5")}
-        <label for="twists">Schrauben:</label>
+        <label for="saults">Saltodrehungen:</label>
         <select
-            name="twists"
-            on:change={onChangeTwistHandler}
-            bind:value={twists}
+            name="saults"
+            on:change={onChangeSaultHandler}
+            bind:value={saults}
         >
+            <option value="0">0</option>
             <option value="1">½</option>
             <option value="2">1</option>
             <option value="3">1½</option>
@@ -186,60 +170,81 @@
             <option value="7">3½</option>
             <option value="8">4</option>
             <option value="9">4½</option>
+            <option value="10">5</option>
+            <option value="11">5½</option>
         </select>
+
+        {#if group === "5" || (group === "6" && subGroup.charAt(0) === "5")}
+            <label for="twists">Schrauben:</label>
+            <select
+                name="twists"
+                on:change={onChangeTwistHandler}
+                bind:value={twists}
+            >
+                <option value="1">½</option>
+                <option value="2">1</option>
+                <option value="3">1½</option>
+                <option value="4">2</option>
+                <option value="5">2½</option>
+                <option value="6">3</option>
+                <option value="7">3½</option>
+                <option value="8">4</option>
+                <option value="9">4½</option>
+            </select>
+        {/if}
+
+        {#if "1234".includes(group)}
+            <label for="check_isFlying">Fliegend?</label>
+            <input
+                type="checkbox"
+                name="check_isFlying"
+                on:change={onChangeFlyingHandler}
+            />
+        {/if}
     {/if}
 
-    {#if "1234".includes(group)}
-        <label for="check_isFlying">Fliegend?</label>
-        <input
-            type="checkbox"
-            name="check_isFlying"
-            on:change={onChangeFlyingHandler}
-        />
+    {#if dive}
+        <p>{dive.de}</p>
+        <table>
+            <tr><th>Höhe</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+            <tr>
+                <td>1</td>
+                <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
+            </tr>
+            <tr>
+                <td>7.5</td>
+                <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
+                <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
+            </tr>
+        </table>
     {/if}
-{/if}
-
-{#if dive}
-    <p>{dive.de}</p>
-    <table>
-        <tr><th>Höhe</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-        <tr>
-            <td>1</td>
-            <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
-        </tr>
-        <tr>
-            <td>7.5</td>
-            <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
-            <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
-        </tr>
-    </table>
-{/if}
+</div>
 
 <style>
     table {
