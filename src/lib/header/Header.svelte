@@ -32,7 +32,7 @@
 				class="flex items-center justify-between py-3 md:py-5 md:block"
 			>
 			<!--  -->
-				<a sveltekit:prefetch href="/" class="mx-5 text-blue-600 font-bold text-xl italic">Wassers<div class="inline underline decoration-wavy">pr<p class="inline text-orange-600 absolute" style="top: 8pt">i</p>&nbsp;&nbsp;&nbsp;ng</div>en</a>
+				<a sveltekit:prefetch href="/" class="mx-5 text-blue-600 font-bold text-xl italic">Wassersp<div class="inline underline decoration-wavy">r<p class="inline text-orange-600 absolute top-2">i</p>&nbsp;&nbsp;&nbsp;&nbsp;</div>ngen</a>
 				<div class="md:hidden">
 					<button
 						class="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
