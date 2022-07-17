@@ -6,7 +6,7 @@
         type Group,
     } from "$lib/diveDB";
 
-    let showEasyDiveInput = true;
+    let showEasyDiveInput = false;
     let dive: Dive | undefined;
     let number: number;
     let group: Group = "1";
@@ -22,8 +22,8 @@
         dive = getDiveByNumber(`${number}`);
     };
 
-    const toggleMode = (_e: any) => {
-        showEasyDiveInput = !showEasyDiveInput;
+    const toggleMode = (e: any) => {
+        showEasyDiveInput = e.target.checked;
         showEasyDiveInput && numberToExtInput();
     };
 
@@ -100,18 +100,24 @@
     };
 </script>
 
+<p class="w-full pt-4 text-center font-bold">
+    {dive ? dive.de : "Warte auf Eingabe"}
+</p>
+
 <div class="flexbox p-5">
+    <label for="input_number">Sprungnummer</label>
     <input
-        type="number"
-        min="0"
+        id="input_number"
+        maxlength="4"
         bind:value={number}
-        placeholder="Sprungnummer"
         on:change={onChangeNumberHandler}
-        class="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+        class="w-12 pl-1 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
     />
 
+    <label for="check_erweitert">#</label>
     <input
-        type="button"
+        id="check_erweitert"
+        type="checkbox"
         on:click={toggleMode}
         value="{!showEasyDiveInput
             ? 'Zeige'
@@ -119,8 +125,10 @@
     />
 
     {#if showEasyDiveInput}
-        <label for="group">Richtung:</label>
+        <br />
+        <label for="group">Gruppe</label>
         <select
+            class="pl-1 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             name="group"
             on:change={onChangeDirectionHandler}
             bind:value={group}
@@ -134,8 +142,8 @@
         </select>
 
         {#if group === "5" || group === "6"}
-            <label for="subdirection">...:</label>
             <select
+                class="pl-1 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
                 name="subdirection"
                 on:change={onChangeSubDirectionHandler}
                 bind:value={subGroup}
@@ -154,8 +162,10 @@
             </select>
         {/if}
 
-        <label for="saults">Saltodrehungen:</label>
+        <br />
+        <label for="saults">Saltodrehungen</label>
         <select
+            class="pl-1 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
             name="saults"
             on:change={onChangeSaultHandler}
             bind:value={saults}
@@ -175,8 +185,10 @@
         </select>
 
         {#if group === "5" || (group === "6" && subGroup.charAt(0) === "5")}
+            <br />
             <label for="twists">Schrauben:</label>
             <select
+                class="pl-1 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
                 name="twists"
                 on:change={onChangeTwistHandler}
                 bind:value={twists}
@@ -194,7 +206,8 @@
         {/if}
 
         {#if "1234".includes(group)}
-            <label for="check_isFlying">Fliegend?</label>
+            <br />
+            <label for="check_isFlying">Fliegend</label>
             <input
                 type="checkbox"
                 name="check_isFlying"
@@ -204,44 +217,57 @@
     {/if}
 
     {#if dive}
-        <p>{dive.de}</p>
-        <table>
-            <tr><th>Höhe</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-            <tr>
-                <td>1</td>
-                <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
-            </tr>
-            <tr>
-                <td>7.5</td>
-                <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
-                <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
-            </tr>
+        <table class="min-w-full">
+            <thead class="bg-white border-b">
+                <tr><th /><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+            </thead>
+            <tbody>
+                <tr
+                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                    <td>1</td>
+                    <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
+                </tr>
+                <tr
+                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                    <td>3</td>
+                    <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
+                </tr>
+                <tr
+                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                    <td>5</td>
+                    <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
+                </tr>
+                <tr
+                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                    <td>7.5</td>
+                    <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
+                </tr>
+                <tr
+                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                >
+                    <td>10</td>
+                    <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
+                    <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
+                </tr>
+            </tbody>
         </table>
     {/if}
 </div>
