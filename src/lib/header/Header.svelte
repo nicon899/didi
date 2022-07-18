@@ -8,34 +8,16 @@
 </script>
 
 <header>
-	<!-- <nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
-			<li class="{$page.url.pathname === '/' ? 'activeTab' : ''}"><a sveltekit:prefetch href="/">Home</a></li>
-			<li class="{$page.url.pathname === '/dives' ? 'activeTab' : ''}">
-				<a sveltekit:prefetch href="/dives">Sprünge</a>
-			</li>
-			<li class="{$page.url.pathname === '/dictionary' ? 'activeTab' : ''}">
-				<a sveltekit:prefetch href="/dictionary">Wörterbuch 🇩🇪🇬🇧🇺🇦 </a>
-			</li>
-		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav> -->
-
-	<nav class="bg-white w-full border-b md:border-0 md:static">
+	<nav class="bg-black w-full md:static">
 		<div class="items-center max-w-screen-xl md:flex">
-			<div
-				class="flex items-center justify-between py-3 md:py-5 md:block"
-			>
-			<!--  -->
-				<a sveltekit:prefetch href="/" class="mx-5 text-blue-600 font-bold text-xl italic">Wassersp<div class="inline underline decoration-wavy">r<p class="inline text-orange-600 absolute top-2">i</p>&nbsp;&nbsp;&nbsp;&nbsp;</div>ngen</a>
+			<div class="flex items-center justify-between md:py-5 md:block" >
+				<a sveltekit:prefetch href="/" 					
+					class="mx-5 text-blue-600 font-bold text-xl italic"
+					>Wassersp<div class="inline underline decoration-wavy">r<p class="inline text-orange-600 absolute top-0 text-sm">i</p>&nbsp;&nbsp;&nbsp;&nbsp;</div>ngen</a
+				>
 				<div class="md:hidden">
 					<button
-						class="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
+						class="text-gray-400 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
 						on:click={() => setState(!state)}
 					>
 						{#if state}
@@ -76,14 +58,14 @@
 				}`}
 			>
 				<ul class="space-y-8 md:flex md:space-x-6 md:space-y-0">
-					<li class="text-gray-600 hover:text-indigo-600">
+					<li class="text-gray-400 hover:text-indigo-600">
 						<a
 							on:click={() => setState(false)}
 							sveltekit:prefetch
 							href="/dives">Sprünge</a
 						>
 					</li>
-					<li class="text-gray-600 hover:text-indigo-600">
+					<li class="text-gray-400 hover:text-indigo-600">
 						<a
 							on:click={() => setState(false)}
 							sveltekit:prefetch

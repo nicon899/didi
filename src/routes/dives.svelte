@@ -207,7 +207,7 @@
 
         {#if "1234".includes(group)}
             <br />
-            <label for="check_isFlying">Fliegend</label>
+            <label for="check_isFlying">Fliegend?</label>
             <input
                 type="checkbox"
                 name="check_isFlying"
@@ -228,19 +228,22 @@
                 </tr>
             </thead>
             <tbody>
+                {#each [1, 3, 5, 7.5, 10] as h}
+                    <tr
+                        class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+                    >
+                        <td class="text-right pr-2">{h}m</td>
+                        <td>{formatSKG(getSKG(dive.id, parseInt(h), "A"))}</td>
+                        <td>{formatSKG(getSKG(dive.id, parseInt(h), "B"))}</td>
+                        <td>{formatSKG(getSKG(dive.id, parseInt(h), "C"))}</td>
+                        <td>{formatSKG(getSKG(dive.id, parseInt(h), "D"))}</td>
+                    </tr>
+                {/each}
+<!-- 
                 <tr
                     class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                 >
-                    <td>1</td>
-                    <td>{formatSKG(getSKG(dive.id, 1, "A"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 1, "B"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 1, "C"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 1, "D"))}</td>
-                </tr>
-                <tr
-                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                >
-                    <td>3</td>
+                    <td class="text-right pr-2">3m</td>
                     <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
@@ -249,7 +252,7 @@
                 <tr
                     class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                 >
-                    <td>5</td>
+                    <td class="text-right pr-2">5m</td>
                     <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
@@ -258,7 +261,7 @@
                 <tr
                     class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                 >
-                    <td>7.5</td>
+                    <td>7.5m</td>
                     <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
@@ -267,12 +270,12 @@
                 <tr
                     class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                 >
-                    <td>10</td>
+                    <td class="text-right pr-2">10m</td>
                     <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
                     <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     {/if}
