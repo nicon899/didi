@@ -96,7 +96,7 @@
     };
 
     const formatSKG = (skg: number | null) => {
-        return skg ? skg : "-/-";
+        return skg ? skg.toFixed(1) : "-/-";
     };
 </script>
 
@@ -217,9 +217,15 @@
     {/if}
 
     {#if dive}
-        <table class="min-w-full">
+        <table class="min-w-full mt-6">
             <thead class="bg-white border-b">
-                <tr><th /><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+                <tr>
+                    <th>SKG</th>
+                    <th class="font-normal">A</th>
+                    <th class="font-normal">B</th>
+                    <th class="font-normal">C</th>
+                    <th class="font-normal">D</th>
+                </tr>
             </thead>
             <tbody>
                 <tr

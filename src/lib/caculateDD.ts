@@ -106,11 +106,11 @@ export const juniorTable = {
 }
 
 const tableA = {
-    1: [0.9, 1.1, 1.2, 1.6, 2.0, 2.4, 2.7, 3.0, 3.3, 3.8],
-    3: [1.0, 1.3, 1.3, 1.5, 1.8, 2.2, 2.3, 2.8, 2.9, 3.5],
-    5: [0.9, 1.1, 1.2, 1.6, 2.0, 2.4, 2.7, 3.0, null, null, null],
-    7: [1.0, 1.3, 1.3, 1.5, 1.8, 2.2, 2.3, 2.8, 3.5, 3.5, null],
-    10: [1.0, 1.3, 1.4, 1.5, 1.9, 2.1, 2.5, 2.7, 3.5, 3.5, 4.5]
+    1: [0.9, 1.1, 1.2, 1.6, 2.0, 2.4, 2.7, 3.0, 3.3, 3.8, null, null],
+    3: [1.0, 1.3, 1.3, 1.5, 1.8, 2.2, 2.3, 2.8, 2.9, 3.5, null, null],
+    5: [0.9, 1.1, 1.2, 1.6, 2.0, 2.4, 2.7, 3.0, null, null, null, null],
+    7: [1.0, 1.3, 1.3, 1.5, 1.8, 2.2, 2.3, 2.8, 3.5, 3.5, null, null],
+    10: [1.0, 1.3, 1.4, 1.5, 1.9, 2.1, 2.5, 2.7, 3.5, 3.5, null, 4.5]
 }
 
 const tableB = {
@@ -240,11 +240,11 @@ const tableB = {
             6: 0.3,
         },
         6: {
-            1: null,
+            1: 0,
             2: null,
             3: null,
             4: null,
-            6: 0,
+            6: null,
         }
     },
     D: {
@@ -669,6 +669,7 @@ export const getDD = (dive: string, height: number, pos: Position) => {
         d = getDDD(subgroup ? subgroup : group, height, saults)
     }
     let e = isWithTwists ? 0 : getDDE(group, saults, height >= 5, subgroup)
+    // console.log(`${a}, ${b}, ${c}, ${d}, ${e}`)
     if (a === null || b === null || c === null || d === null || e === null) return null
     let dd = (a + b + c + d + e)
     return Math.round((dd + Number.EPSILON) * 100) / 100
@@ -680,7 +681,6 @@ const getDDA = (height: number, saults: number) => {
 
 const getDDB = (pos: Position, group: number, saults: number, height: number) => {
     let saultIndex;
-    if (saults > 9) return 0
     if (height >= 5 && saults >= 8 && group === 3) {
         switch (pos) {
             case "C":
@@ -729,6 +729,12 @@ const getDDB = (pos: Position, group: number, saults: number, height: number) =>
             break;
         case 9:
             saultIndex = 5
+            break;
+        case 10:
+            saultIndex = 6
+            break;
+        case 11:
+            saultIndex = 6
             break;
     }
     return tableB[pos][saultIndex][group]
