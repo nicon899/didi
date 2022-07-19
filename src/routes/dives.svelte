@@ -5,6 +5,7 @@
         type Dive,
         type Group,
     } from "$lib/diveDB";
+import { identity } from "svelte/internal";
 
     let showEasyDiveInput = false;
     let dive: Dive | undefined;
@@ -41,7 +42,7 @@
             subGroup = tmp[1][0];
         }
         saults = tmp[2];
-        if (group === "5" || (group === "6" && subGroup.charAt(0) === "5")) {
+        if (group === "5" || (group === "6" && dive?.id.length === 4)) {
             twists = tmp[3];
         }
         dive = getDiveByNumber(tmp);
@@ -59,7 +60,7 @@
             tmp += subGroup.charAt(subGroup.length - 1);
         }
         tmp += saults;
-        if (group === "5" || (group === "6" && subGroup.charAt(0) === "5")) {
+        if (group === "5" || (group === "6" && dive?.id.length === 4)) {
             tmp += twists;
         }
         number = parseInt(tmp);
@@ -184,7 +185,7 @@
             <option value="11">5½</option>
         </select>
 
-        {#if group === "5" || (group === "6" && subGroup.charAt(0) === "5")}
+        {#if group === "5" || (group === "6" && dive.id.length === 4)}
             <br />
             <label for="twists">Schrauben:</label>
             <select
@@ -239,43 +240,6 @@
                         <td>{formatSKG(getSKG(dive.id, parseInt(h), "D"))}</td>
                     </tr>
                 {/each}
-<!-- 
-                <tr
-                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                >
-                    <td class="text-right pr-2">3m</td>
-                    <td>{formatSKG(getSKG(dive.id, 3, "A"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 3, "B"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 3, "C"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 3, "D"))}</td>
-                </tr>
-                <tr
-                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                >
-                    <td class="text-right pr-2">5m</td>
-                    <td>{formatSKG(getSKG(dive.id, 5, "A"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 5, "B"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 5, "C"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 5, "D"))}</td>
-                </tr>
-                <tr
-                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                >
-                    <td>7.5m</td>
-                    <td>{formatSKG(getSKG(dive.id, 7, "A"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 7, "B"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 7, "C"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 7, "D"))}</td>
-                </tr>
-                <tr
-                    class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
-                >
-                    <td class="text-right pr-2">10m</td>
-                    <td>{formatSKG(getSKG(dive.id, 10, "A"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 10, "B"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 10, "C"))}</td>
-                    <td>{formatSKG(getSKG(dive.id, 10, "D"))}</td>
-                </tr> -->
             </tbody>
         </table>
     {/if}

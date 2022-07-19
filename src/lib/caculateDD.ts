@@ -377,11 +377,21 @@ const tableC = {
         { group: 6, subGroup: 2, saults: [1, 9], val: 1.2 },
         { group: 6, subGroup: 3, saults: [1, 9], val: 1.2 },
     ],
-    3: [
+    "3board": [
         { group: 5, subGroup: 1, saults: [1, 4], val: 0.8 },
         { group: 5, subGroup: 1, saults: [5, 7], val: 0.8 },
         { group: 5, subGroup: 2, saults: [1, 4], val: 0.8 },
         { group: 5, subGroup: 2, saults: [5, 7], val: 0.7 },
+        { group: 5, subGroup: 3, saults: [1, 4], val: 0.8 },
+        { group: 5, subGroup: 3, saults: [5, 7], val: 0.6 },
+        { group: 5, subGroup: 4, saults: [1, 4], val: 0.8 },
+        { group: 5, subGroup: 4, saults: [5, 7], val: 0.8 },
+    ],
+    "3plat": [
+        { group: 5, subGroup: 1, saults: [1, 4], val: 0.8 },
+        { group: 5, subGroup: 1, saults: [5, 7], val: 0.8 },
+        { group: 5, subGroup: 2, saults: [1, 4], val: 0.8 },
+        { group: 5, subGroup: 2, saults: [5, 7], val: 0.6 },
         { group: 5, subGroup: 3, saults: [1, 4], val: 0.8 },
         { group: 5, subGroup: 3, saults: [5, 7], val: 0.6 },
         { group: 5, subGroup: 4, saults: [1, 4], val: 0.8 },
@@ -669,7 +679,7 @@ export const getDD = (dive: string, height: number, pos: Position) => {
         d = getDDD(subgroup ? subgroup : group, height, saults)
     }
     let e = isWithTwists ? 0 : getDDE(group, saults, height >= 5, subgroup)
-    // console.log(`${a}, ${b}, ${c}, ${d}, ${e}`)
+    console.log(`${a}, ${b}, ${c}, ${d}, ${e}`)
     if (a === null || b === null || c === null || d === null || e === null) return null
     let dd = (a + b + c + d + e)
     return Math.round((dd + Number.EPSILON) * 100) / 100
@@ -757,7 +767,7 @@ const getDDC = (twists: number, saults: number, group: number, subGroup: number,
     if (group === 6 && saults >= 5 && (pos !== "B" && pos !== "C")) {
         return null;
     }
-    let twistIndex = ([5, 7, 9].findIndex(i => i === twists) >= 0) ? (isPlatform ? `${twists}plat` : `${twists}board`) : twists
+    let twistIndex = ([3, 5, 7, 9].findIndex(i => i === twists) >= 0) ? (isPlatform ? `${twists}plat` : `${twists}board`) : twists
     for (let c of tableC[twistIndex]) {
         if (group === c.group && subGroup === c.subGroup && saults >= c.saults[0] && saults <= c.saults[1]) {
             let res = c.val
@@ -776,6 +786,9 @@ const getDDD = (group: number, height: number, saults: number) => {
 
 const getDDDArmstand = (subgroup: number, saults: number) => {
     switch (subgroup) {
+        case 0:
+            if (saults <= 4) return 0.2
+            return 0.4
         case 1:
             if (saults <= 4) return 0.2
             return 0.4
