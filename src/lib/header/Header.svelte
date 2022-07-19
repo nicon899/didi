@@ -10,7 +10,7 @@
 <header>
 	<nav class="bg-black w-full md:static">
 		<div class="items-center max-w-screen-xl md:flex">
-			<div class="flex items-center justify-between md:py-5 md:block" >
+			<div class="flex items-center justify-between md:py-1 md:block" >
 				<a sveltekit:prefetch href="/" 					
 					class="mx-5 text-blue-600 font-bold text-xl italic"
 					>Wassersp<div class="inline underline decoration-wavy">r<p class="inline text-orange-600 absolute top-0 text-sm">i</p>&nbsp;&nbsp;&nbsp;&nbsp;</div>ngen</a
