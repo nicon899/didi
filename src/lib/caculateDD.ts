@@ -737,6 +737,7 @@ const getDDB = (pos: Position, group: number, saults: number, height: number) =>
             saultIndex = 6
             break;
     }
+    if (tableB[pos] == null || tableB[pos][saultIndex] == null || tableB[pos][saultIndex][group] == null) return null
     return tableB[pos][saultIndex][group]
 }
 
@@ -767,6 +768,7 @@ const getDDC = (twists: number, saults: number, group: number, subGroup: number,
 
 const getDDD = (group: number, height: number, saults: number) => {
     if (height >= 5 && group === 3 && saults >= 5 && saults <= 6) return 0.4 // workaround because table difference for springboard and platform
+    if (!tableD[group]) return null
     let resD = tableD[group][height];
     if (saults >= resD.saultForHigh) return resD.valHigh
     return resD.valLow
@@ -796,7 +798,7 @@ const getDDE = (group: number, saults: number, isPlatform: boolean, subGroup: nu
                 break;
             case 6: valD = 0.2
                 break;
-            case 8: valD = isPlatform ? 0.2 : 0
+            case 8: valD = isPlatform ? 0 : 0.2
                 break;
         }
     }
