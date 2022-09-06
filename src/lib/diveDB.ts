@@ -22,7 +22,7 @@ export const getDiveByNumber = (number: string) => {
     return { id: number, de: "Unbekannter Sprung" }
 }
 
-const DIVES: Dive[] = [
+export const DIVES: Dive[] = [
     { id: "010", de: "Abfaller vorwärts" },
     { id: "020", de: "Abfaller rückwärts" },
     { id: "100", de: "Fußsprung vorwärts" },
